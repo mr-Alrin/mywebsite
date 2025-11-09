@@ -1,100 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crynchy Textitify</title>
-
-    <!-- ✅ Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Roboto:wght@400;700&family=Lobster&display=swap" rel="stylesheet">
-
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            padding: 40px;
-            background: #f5f5f5;
-        }
-
-        h1 {
-            font-family: 'Lobster', cursive;
-        }
-
-        input, select {
-            width: 300px;
-            padding: 10px;
-            font-size: 18px;
-            margin-bottom: 20px;
-        }
-
-        #outputText {
-            font-size: 24px;
-            font-family: 'Roboto', sans-serif;
-            font-weight: bold;
-            margin-top: 20px;
-        }
-    </style>
+<meta charset="utf-8">
+<title>Test</title>
+<style>
+  body{font-family:Arial, sans-serif;padding:20px}
+  #output{font-size:22px}
+</style>
 </head>
-
 <body>
-
-    <h1>Crynchy Textitify</h1>
-
-    <h2>Enter your text:</h2>
-    <input type="text" id="userText" placeholder="Type here...">
-
-    <h2>Choose Font Style:</h2>
-    <select id="fontStyle">
-        <option value="scratchy">Scratchy</option>
-        <option value="bold">Bold</option>
-        <option value="bubble">Bubble</option>
-    </select>
-
-    <h2>Your Fancy Text:</h2>
-    <p id="outputText"></p>
-
-    <script>
-        const input = document.getElementById("userText");
-        const output = document.getElementById("outputText");
-        const fontSelect = document.getElementById("fontStyle");
-
-        function applyFont(text, style) {
-
-            // ✅ SCRATCHY
-            if (style === "scratchy") {
-                return text.split("").map(c => c + "̷").join("");
-            }
-
-            // ✅ BOLD
-            if (style === "bold") {
-                const normal = "abcdefghijklmnopqrstuvwxyz";
-                const bold = "𝗮𝗯𝗰𝗱𝗲𝗳𝗴𝗵𝗶𝗷𝗸𝗹𝗺𝗻𝗼𝗽𝗾𝗿𝘀𝘁𝘂𝘃𝘄𝘅𝘆𝘇";
-                return text.toLowerCase().split("").map(c => {
-                    let index = normal.indexOf(c);
-                    return index !== -1 ? bold[index] : c;
-                }).join("");
-            }
-
-            // ✅ BUBBLE
-            if (style === "bubble") {
-                const normal = "abcdefghijklmnopqrstuvwxyz";
-                const bubble = "ⓐⓑⓒⓓⓔⓕⓖⓗⓘⓙⓚⓛⓜⓝⓞⓟⓠⓡⓢⓣⓤⓥⓦⓧⓨⓩ";
-                return text.toLowerCase().split("").map(c => {
-                    let index = normal.indexOf(c);
-                    return index !== -1 ? bubble[index] : c;
-                }).join("");
-            }
-
-            return text;
-        }
-
-        input.addEventListener("input", () => {
-            output.innerText = applyFont(input.value, fontSelect.value);
-        });
-
-        fontSelect.addEventListener("change", () => {
-            output.innerText = applyFont(input.value, fontSelect.value);
-        });
-    </script>
-
+<input id="t" placeholder="type">
+<select id="s"><option value="a">A</option></select>
+<div id="output"></div>
+<script>
+const i=document.getElementById('t'), o=document.getElementById('output');
+i.addEventListener('input',()=>{ o.innerText = i.value.toUpperCase(); });
+</script>
 </body>
 </html>
