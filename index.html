@@ -1,20 +1,203 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<title>Test</title>
-<style>
-  body{font-family:Arial, sans-serif;padding:20px}
-  #output{font-size:22px}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crynchy Textitify</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Roboto:wght@400;700&family=Lobster&family=Caveat:wght@700&family=Bebas+Neue&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: Poppins, sans-serif;
+            padding: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        input, select {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        #outputText {
+            font-size: 32px;
+            font-weight: bold;
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            min-height: 60px;
+            word-wrap: break-word;
+            transition: all 0.3s ease;
+        }
+
+        h1 {
+            font-family: Lobster, cursive;
+            font-size: 48px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+
+        .copy-btn {
+            padding: 12px 30px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 15px;
+            transition: all 0.3s;
+        }
+
+        .copy-btn:hover {
+            background: #45a049;
+            transform: scale(1.05);
+        }
+
+        .copy-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Font-specific styles */
+        .scratchy { font-family: 'Courier New', monospace; letter-spacing: 2px; }
+        .bold { font-family: 'Bebas Neue', Impact, sans-serif; }
+        .bubble { font-family: 'Poppins', sans-serif; }
+        .cursive { font-family: 'Caveat', cursive; }
+        .smallcaps { font-family: 'Roboto', sans-serif; letter-spacing: 1px; }
+    </style>
 </head>
+
 <body>
-<input id="t" placeholder="type">
-<select id="s"><option value="a">A</option></select>
-<div id="output"></div>
-<script>
-const i=document.getElementById('t'), o=document.getElementById('output');
-i.addEventListener('input',()=>{ o.innerText = i.value.toUpperCase(); });
-</script>
+    <div class="container">
+        <h1>✨ Crynchy Textitify ✨</h1>
+
+        <h2>Enter your text:</h2>
+        <input type="text" id="userText" placeholder="Type something cool...">
+
+        <h2>Choose Font Style:</h2>
+        <select id="fontStyle">
+            <option value="scratchy">Scratchy</option>
+            <option value="bold">Bold</option>
+            <option value="bubble">Bubble</option>
+            <option value="cursive">Cursive</option>
+            <option value="smallcaps">Small Caps</option>
+        </select>
+
+        <h2>Your Fancy Text:</h2>
+        <p id="outputText"></p>
+        
+        <button class="copy-btn" onclick="copyText()">📋 Copy Text</button>
+    </div>
+
+    <script>
+        const input = document.getElementById("userText");
+        const output = document.getElementById("outputText");
+        const fontSelect = document.getElementById("fontStyle");
+
+        function applyFont(text, style) {
+            // Remove previous font class
+            output.className = '';
+            
+            // Add new font class
+            output.classList.add(style);
+
+            // SCRATCHY - with strike-through effect
+            if (style === "scratchy") {
+                return text.split("").map(c => c + "\u0336").join("");
+            }
+
+            // BOLD - Unicode bold
+            if (style === "bold") {
+                const normal = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+                const bold = "𝗮𝗯𝗰𝗱𝗲𝗳𝗴𝗵𝗶𝗷𝗸𝗹𝗺𝗻𝗼𝗽𝗾𝗿𝘀𝘁𝘂𝘃𝘄𝘅𝘆𝘇𝗔𝗕𝗖𝗗𝗘𝗙𝗚𝗛𝗜𝗝𝗞𝗟𝗠𝗡𝗢𝗣𝗤𝗥𝗦𝗧𝗨𝗩𝗪𝗫𝗬𝗭";
+                return text.split("").map(c => {
+                    let index = normal.indexOf(c);
+                    return index !== -1 ? bold[index] : c;
+                }).join("");
+            }
+
+            // BUBBLE
+            if (style === "bubble") {
+                const normal = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+                const bubble = "ⓐⓑⓒⓓⓔⓕⓖⓗⓘⓙⓚⓛⓜⓝⓞⓟⓠⓡⓢⓣⓤⓥⓦⓧⓨⓩⒶⒷⒸⒹⒺⒻⒼⒽⒾⒿⓀⓁⓂⓃⓄⓅⓆⓇⓈⓉⓊⓋⓌⓍⓎⓏ";
+                return text.split("").map(c => {
+                    let index = normal.indexOf(c);
+                    return index !== -1 ? bubble[index] : c;
+                }).join("");
+            }
+
+            // CURSIVE
+            if (style === "cursive") {
+                const normal = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+                const cursive = "𝓪𝓫𝓬𝓭𝓮𝓯𝓰𝓱𝓲𝓳𝓴𝓵𝓶𝓷𝓸𝓹𝓺𝓻𝓼𝓽𝓾𝓿𝔀𝔁𝔂𝔃𝓐𝓑𝓒𝓓𝓔𝓕𝓖𝓗𝓘𝓙𝓚𝓛𝓜𝓝𝓞𝓟𝓠𝓡𝓢𝓣𝓤𝓥𝓦𝓧𝓨𝓩";
+                return text.split("").map(c => {
+                    let index = normal.indexOf(c);
+                    return index !== -1 ? cursive[index] : c;
+                }).join("");
+            }
+
+            // SMALL CAPS
+            if (style === "smallcaps") {
+                const normal = "abcdefghijklmnopqrstuvwxyz";
+                const caps = "ᴀʙᴄᴅᴇꜰɢʜɪᴊᴋʟᴍɴᴏᴘǫʀꜱᴛᴜᴠᴡxʏᴢ";
+                return text.toUpperCase().split("").map(c => {
+                    let lower = c.toLowerCase();
+                    let index = normal.indexOf(lower);
+                    return index !== -1 ? caps[index] : c;
+                }).join("");
+            }
+
+            return text;
+        }
+
+        // Update on typing
+        input.addEventListener("input", () => {
+            output.innerText = applyFont(input.value, fontSelect.value);
+        });
+
+        // Update on font change
+        fontSelect.addEventListener("change", () => {
+            output.innerText = applyFont(input.value, fontSelect.value);
+        });
+
+        // Copy function
+        function copyText() {
+            const text = output.innerText;
+            if (text) {
+                navigator.clipboard.writeText(text).then(() => {
+                    const btn = document.querySelector('.copy-btn');
+                    btn.innerText = '✅ Copied!';
+                    setTimeout(() => {
+                        btn.innerText = '📋 Copy Text';
+                    }, 2000);
+                });
+            }
+        }
+    </script>
+
 </body>
 </html>
