@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crynchy Textitify</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 40px;
+            background: #f5f5f5;
+        }
+
+        input, select {
+            width: 300px;
+            padding: 10px;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        #outputText {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Crynchy Textitify</h1>
+
+    <h2>Enter your text:</h2>
+    <input type="text" id="userText" placeholder="Type here...">
+
+    <h2>Choose Font Style:</h2>
+    <select id="fontStyle">
+        <option value="scratchy">Scratchy</option>
+        <option value="bold">Bold</option>
+        <option value="bubble">Bubble</option>
+    </select>
+
+    <h2>Your Fancy Text:</h2>
+    <p id="outputText"></p>
+
+    <script>
+        const input = document.getElementById("userText");
+        const output = document.getElementById("outputText");
+        const fontSelect = document.getElementById("fontStyle");
+
+        function applyFont(text, style) {
+
+            // ✅ SCRATCHY
+            if (style === "scratchy") {
+                return text.split("").map(c => c + "̷").join("");
+            }
+
+            // ✅ BOLD
+            if (style === "bold") {
+                const normal = "abcdefghijklmnopqrstuvwxyz";
+                const bold = "𝗮𝗯𝗰𝗱𝗲𝗳𝗴𝗵𝗶𝗷𝗸𝗹𝗺𝗻𝗼𝗽𝗾𝗿𝘀𝘁𝘂𝘃𝘄𝘅𝘆𝘇";
+                return text.toLowerCase().split("").map(c => {
+                    let index = normal.indexOf(c);
+                    return index !== -1 ? bold[index] : c;
+                }).join("");
+            }
+
+            // ✅ BUBBLE
+            if (style === "bubble") {
+                const normal = "abcdefghijklmnopqrstuvwxyz";
+                const bubble = "ⓐⓑⓒⓓⓔⓕⓖⓗⓘⓙⓚⓛⓜⓝⓞⓟⓠⓡⓢⓣⓤⓥⓦⓧⓨⓩ";
+                return text.toLowerCase().split("").map(c => {
+                    let index = normal.indexOf(c);
+                    return index !== -1 ? bubble[index] : c;
+                }).join("");
+            }
+
+            return text;
+        }
+
+        // Update on typing
+        input.addEventListener("input", () => {
+            output.innerText = applyFont(input.value, fontSelect.value);
+        });
+
+        // Update on font change
+        fontSelect.addEventListener("change", () => {
+            output.innerText = applyFont(input.value, fontSelect.value);
+        });
+    </script>
+
+</body>
+</html>
